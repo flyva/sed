@@ -1,0 +1,91 @@
+{% extends 'template/layout_print.twig' %}
+
+
+{% block title %}
+    <title>Patients</title>
+{% endblock %}
+{% block file_dariane %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Gestion des patients</h1>
+    </div>
+{% endblock %}
+{% block content %}
+
+    <div class="card shadow col-md-12">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-users"></i> Nos Patients</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Nom & Prénom</th>
+                        <th>Date de naissance</th>
+                        <th>Ville</th>
+                        <th>Email</th>
+                        <th>Adhésion en cours</th>
+                        <th>Entretien</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for patients in patient %}
+                        <tr style="text-align: center">
+                            <td><span style="text-transform: uppercase">{{ patients.last_name }} </span>{{ patients.first_name }} {{ patients.id }}</td>
+                            <td>{{ patients.birthdate|date("m-d-Y") }}</td>
+                            <td>{{ patients.address_city }}</td>
+                            <td>{{ patients.mail }}</td>
+                            <td>
+                                {% for adhesions in adhesion %}
+                                    {% if adhesions.users_id == patients.users_id  %}
+
+                                        {% if adhesions.date < "now"|date("m/d/Y") %}
+                                            <h4 style="color: white"><span class="badge bg-success">Valide</span></h4>
+                                        {% endif %}
+
+                                        {% if adhesions.date > "now"|date("m/d/Y") %}
+                                            <h4 style="color: white"><span class="badge bg-danger">Date Expirer</span></h4>
+                                        {% endif %}
+
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for interviews in interview %}
+                                    {% if interviews.users_id == patients.id  %}
+                                        {% if interviews.date > "now"|date("m/d/Y") %}
+
+                                            <h4 style="color: white"><span class="badge bg-info">{{ interviews.date|date("m/d/Y") }}</span></h4>
+
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-dark" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <span class="fa fa-print"></span>
+                                </a>
+                                <a class="btn btn-outline-primary" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <span class="fa fa-file"></span>
+                                </a>
+                                <a class="btn btn-outline-warning" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <span class="fa fa-edit"></span>
+                                </a>
+                                <a class="btn btn-outline-danger" href="#" data-toggle="modal" data-target="#logoutModal" >
+                                    <span class="fa fa-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modals -->
+    <!-- Print -->
+
+{% endblock %}
