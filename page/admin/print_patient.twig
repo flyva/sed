@@ -10,82 +10,52 @@
     </div>
 {% endblock %}
 {% block content %}
-
+    <!-- Print -->
+<div class="col-md-12">
+    <h1>Les Zèbres SED</h1>
+    <h5>Nathalie RIBES</h5>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="card shadow col-md-12">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-users"></i> Nos Patients</h6>
+            <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-user"></i> Informations du patient</h6>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>Nom & Prénom</th>
-                        <th>Date de naissance</th>
-                        <th>Ville</th>
-                        <th>Email</th>
-                        <th>Adhésion en cours</th>
-                        <th>Entretien</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for patients in patient %}
-                        <tr style="text-align: center">
-                            <td><span style="text-transform: uppercase">{{ patients.last_name }} </span>{{ patients.first_name }} {{ patients.id }}</td>
-                            <td>{{ patients.birthdate|date("m-d-Y") }}</td>
-                            <td>{{ patients.address_city }}</td>
-                            <td>{{ patients.mail }}</td>
-                            <td>
-                                {% for adhesions in adhesion %}
-                                    {% if adhesions.users_id == patients.users_id  %}
-
-                                        {% if adhesions.date < "now"|date("m/d/Y") %}
-                                            <h4 style="color: white"><span class="badge bg-success">Valide</span></h4>
-                                        {% endif %}
-
-                                        {% if adhesions.date > "now"|date("m/d/Y") %}
-                                            <h4 style="color: white"><span class="badge bg-danger">Date Expirer</span></h4>
-                                        {% endif %}
-
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                            <td>
-                                {% for interviews in interview %}
-                                    {% if interviews.users_id == patients.id  %}
-                                        {% if interviews.date > "now"|date("m/d/Y") %}
-
-                                            <h4 style="color: white"><span class="badge bg-info">{{ interviews.date|date("m/d/Y") }}</span></h4>
-
-                                        {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                            <td>
-                                <a class="btn btn-outline-dark" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <span class="fa fa-print"></span>
-                                </a>
-                                <a class="btn btn-outline-primary" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <span class="fa fa-file"></span>
-                                </a>
-                                <a class="btn btn-outline-warning" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <span class="fa fa-edit"></span>
-                                </a>
-                                <a class="btn btn-outline-danger" href="#" data-toggle="modal" data-target="#logoutModal" >
-                                    <span class="fa fa-trash"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+            <H6>Nom: <strong>{{unique_patient.first_name}}</strong></H6>
+            <H6>Prénom: <strong>{{unique_patient.last_name}}</H6>
+            <br>
+            <H6>Date de naissance: <strong>{{unique_patient.birthdate}}</strong></H6>
+            <br>
+            <H6>Adresse Postale: <strong>{{unique_patient.address_street}}, {{unique_patient.address_cp}}, {{unique_patient.address_city}}</strong></H6>
+            <br>
+            <br>
+            <H6>Mail: <strong>{{unique_patient.mail}}</strong></H6>
+            <H6>Téléphone: <strong>{{unique_patient.phone}}</strong></H6>
         </div>
     </div>
-
-
-    <!-- Modals -->
-    <!-- Print -->
+    <br>
+    <hr>
+    <br>
+    <div class="card shadow col-md-12">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-heart"></i> Suivi du patient</h6>
+        </div>
+        <div class="card-body">
+            {%for statuts in statut_patient %}
+                <h6>Date: <strong>{{statuts.date |date("m-d-Y") }}</strong></h6>
+                <br>
+                <h6>Sujet: <strong>{{statuts.subject}}</strong></h6>
+                <br>
+                <h6>Message: <strong>{{statuts.message}}</strong></h6>
+                <br>
+                <hr>
+                <br>
+            {%endfor%}
+        </div>
+    </div>
+</div>
 
 {% endblock %}

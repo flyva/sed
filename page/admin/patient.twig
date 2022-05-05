@@ -62,7 +62,7 @@
                                 {% endfor %}
                             </td>
                             <td>
-                                <a class="btn btn-outline-dark" href="index.php?p=print_patient" data-toggle="modal" data-target="#logoutModal">
+                                <a class="btn btn-outline-dark" href="index.php?p=print_patient&print={{patients.user_key}}">
                                 <span class="fa fa-print"></span>
                                 </a>
                                 <a class="btn btn-outline-primary" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -85,7 +85,7 @@
 
 
     <!-- Modals -->
-    <!-- Print -->
+    <!-- edit -->
 
 
 {% endblock %}
