@@ -1,0 +1,252 @@
+{% extends 'template/layout.twig' %}
+
+
+{% block title %}
+    <title>Patient| {{unique_patient.first_name}} {{unique_patient.last_name}}</title>
+{% endblock %}
+{% block file_dariane %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Gestion du patient <strong>{{unique_patient.first_name}} {{unique_patient.last_name}}</strong></h1>
+    </div>
+{% endblock %}
+{% block content %}
+    <!-- Print -->
+    <div class="col-md-12">
+        {%if edit == 1 %}
+            <div class="alert alert-success" role="alert">
+                Modifier
+            </div>
+        {%endif%}
+
+        {%if delete == 1 %}
+            <div class="alert alert-success" role="alert">
+                Supprimer
+            </div>
+        {%endif%}
+
+        {%if add == 1 %}
+            <div class="alert alert-success" role="alert">
+                Ajouter
+            </div>
+        {%endif%}
+
+        <div class="row">
+            <div class="card shadow col-3">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-user"></i> Informations
+                        <a class="btn btn-sm btn-outline-warning" href="#" data-toggle="modal" data-target="#edit_user_modal_{{unique_patient.user_key}}">Modifier
+                            <span class="fa fa-edit"></span>
+                        </a>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <H6>Nom: <strong>{{unique_patient.first_name}}</strong></H6>
+                    <H6>Prénom: <strong>{{unique_patient.last_name}}</strong></H6>
+                    <br>
+                    <H6>Date de naissance: <strong>{{unique_patient.birthdate}}</strong></H6>
+                    <br>
+                    <H6>Adresse Postale: <strong>{{unique_patient.address_street}}, <br>{{unique_patient.address_cp}}, {{unique_patient.address_city}}</strong></H6>
+                    <br>
+                    <br>
+                    <H6>Mail: <strong>{{unique_patient.mail}}</strong></H6>
+                    <H6>Téléphone: <strong>{{unique_patient.phone}}</strong></H6>
+                </div>
+            </div>
+
+            <div class="col-1"></div>
+            <div class="card shadow col-md-6">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-heart"></i> Suivi
+                        <a class="btn btn-sm btn-outline-primary" href="#" data-toggle="modal" data-target="#add_statut_modal_{{unique_patient.user_key}}">Ajouter
+                            <span class="fa fa-plus"></span>
+                        </a>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Sujet</th>
+                                <th scope="col">Message</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {%for statuts in statut_patient %}
+                                <tr>
+                                    <th scope="row">{{statuts.date |date("m-d-Y") }}</th>
+                                    <td>{{statuts.subject}}</td>
+                                    <td>{{statuts.message}}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-outline-warning" href="#" data-toggle="modal" data-target="#edit_statut_modal_{{unique_patient.user_key}}_statut_{{statuts.statut_patient_id}}">Modifier
+                                            <span class="fa fa-edit"></span>
+                                        </a>
+
+                                        <a class="btn btn-sm btn-outline-danger" href="#" data-toggle="modal" data-target="#delete_statut_modal_{{unique_patient.user_key}}_statut_{{statuts.statut_patient_id}}">Supprimer
+                                            <span class="fa fa-trash"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="row">
+            <div class="card shadow col-12">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-calendar"></i> Entretiens
+                        <a class="btn btn-sm btn-outline-primary" href="#" data-toggle="modal" data-target="#add_interview_modal_{{unique_patient.user_key}}">Ajouter
+                            <span class="fa fa-plus"></span>
+                        </a>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Sujet</th>
+                                <th scope="col">Message</th>
+                                <th scope="col">Situation</th>
+                                <th scope="col">Statut</th>
+                                <th scope="col">Organisateur</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {%for interviews in interview %}
+                                <tr>
+                                    <th scope="row">{{interviews.date |date("m-d-Y") }}/{{interviews.time |date("H:i")}}</th>
+                                    <td>{{interviews.subject}}</td>
+                                    <td>{{interviews.message}}</td>
+                                    <td>
+
+                                        {% if interviews.url == null %}
+                                            <p>Présentiel</p>
+                                        {% else %}
+                                            <a href="{{interviews.url}}" class="btn btn-sm btn-outline-primary">Accèder au lien</a>
+                                        {%endif%}
+
+                                    </td>
+                                    <td>
+
+                                        {% if interviews.statut == 1 %}
+                                            <span style="color: white;" class="badge bg-warning">N'a pas eu lieu</span>
+                                        {% elseif interviews.statut == 2 %}
+                                            <span style="color: white;" class="badge bg-danger">Annuler</span>
+                                        {% else %}
+                                            <span style="color: white;" class="badge bg-success">Terminer</span>
+                                        {%endif%}
+
+                                    </td>
+                                    <td>
+                                        {{admin_get.first_name}} {{admin_get.last_name}}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-outline-warning" href="#" data-toggle="modal" data-target="#edit_interview_modal_{{unique_patient.user_key}}_interviews_{{interviews.interviews_id}}">Modifier
+                                            <span class="fa fa-edit"></span>
+                                        </a>
+
+                                        <a class="btn btn-sm btn-outline-danger" href="#" data-toggle="modal" data-target="#delete_interview_modal_{{unique_patient.user_key}}_interviews_{{interviews.interviews_id}}">Supprimer
+                                            <span class="fa fa-trash"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="card shadow col-12">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-stethoscope"></i> Praticien
+                        <a class="btn btn-sm btn-outline-primary" href="#" data-toggle="modal" data-target="#add_practitian_modal">Ajouter
+                            <span class="fa fa-plus"></span>
+                        </a>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th scope="col">Nom & Prénom</th>
+                                <th scope="col">Titre</th>
+                                <th scope="col">Spécialité</th>
+                                <th scope="col">Adresse</th>
+                                <th scope="col">URL Web</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {%for recommandeds_practitians in recommanded_practitian %}
+                                <tr>
+                                    <th scope="row">{{recommandeds_practitians.last_name}} {{recommandeds_practitians.first_name}}</th>
+                                    <td>
+                                        {% if recommandeds_practitians.type == 1 %}
+                                            Docteur
+                                        {%elseif recommandeds_practitians.type == 2 %}
+                                            Chirurgien
+                                        {% elseif recommandeds_practitians.type == 3 %}
+                                            Infirmier
+                                        {%elseif recommandeds_practitians.type == 4 %}
+                                            Aide Soignant
+                                        {% elseif recommandeds_practitians.type == 5 %}
+                                            Psychologue
+                                        {% endif %}
+
+
+                                    </td>
+                                    <td>
+
+                                        {% if recommandeds_practitians.speciality == 1 %}
+                                            Généraliste
+                                        {% elseif recommandeds_practitians.speciality == 2 %}
+                                            Bariatrique
+                                        {% elseif recommandeds_practitians.speciality == 3 %}
+                                            Psychologie
+                                        {% endif %}
+
+                                    </td>
+                                    <td>
+                                        {{ recommandeds_practitians.address_street}}
+                                        <br>
+                                        {{recommandeds_practitians.address_cp}} {{recommandeds_practitians.address_city}}
+                                    </td>
+                                    <td>
+                                        <a href="{{recommandeds_practitians.url_web}}" class="btn btn-sm btn-outline-primary">Accéder au site</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-outline-danger" href="#" data-toggle="modal" data-target="#delete_recommandeds_practitians_modal_{{unique_patient.user_key}}_recommandeds_practitians_{{recommandeds_practitians.recommandeds_practitians_id}}">Supprimer du dossier
+                                            <span class="fa fa-trash"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+    </div>
+
+{% endblock %}

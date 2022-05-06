@@ -1,0 +1,488 @@
+
+<!-- Modal unique patient -->
+{% for patient in patients %}
+<div class="modal fade" id="edit_user_modal_{{patient.user_key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modification des informations patient</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="admin/form.php?modify_user_patient=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}" method="post">
+                    <div class="col-md-12">
+                      <div class="row">
+                          <div class="col-md-5">
+                              <div class="form-floating mb-3">
+                                  <label for="floatingInput"><strong>Nom</strong></label>
+                                  <input type="text" class="form-control" id="floatingInput" name="first_name" placeholder="Ex.: MICHEL" value="{{patient.first_name}}">
+                              </div>
+                          </div>
+
+                          <div class="col-md-5">
+                              <div class="form-floating mb-3">
+                                  <label for="floatingInput"><strong>Prénom</strong></label>
+                                  <input type="text" class="form-control" id="floatingInput" name="last_name" placeholder="Ex.: Jacky" value="{{patient.last_name}}">
+                              </div>
+                          </div>
+
+                          <div class="col-md-5">
+                              <div class="form-floating mb-3">
+                                  <label for="floatingInput"><strong>Date de naissance</strong></label>
+                                  <input type="date" class="form-control" id="floatingInput" name="birthdate" placeholder="Ex.: 05-05-1993" value="{{patient.birthdate |date("Y-m-d")}}">
+                              </div>
+                          </div>
+                          <div class="col-md-12">
+                              <div class="form-floating mb-3">
+                                  <H5>Adresse</H5>
+                                  <label for="floatingInput"><strong>Numéro, Rue</strong></label>
+                                  <input type="text" class="form-control" id="floatingInput" name="address_street" placeholder="Ex.: 33, rue de la bute" value="{{patient.address_street}}">
+                              </div>
+                          </div>
+                          <div class="col-md-5">
+                              <div class="form-floating mb-3">
+                                  <label for="floatingInput"><strong>Code Postal</strong></label>
+                                  <input type="text" class="form-control" id="floatingInput" name="address_cp" placeholder="Ex.: 444444" value="{{patient.address_cp}}">
+                              </div>
+                          </div>
+                          <div class="col-md-5">
+                              <div class="form-floating mb-3">
+                                  <label for="floatingInput"><strong>Ville</strong></label>
+                                  <input type="text" class="form-control" id="floatingInput" name="address_city" placeholder="Ex.: Piriac-sur-mer" value="{{patient.address_city}}">
+                              </div>
+                          </div>
+
+                          <div class="col-md-12">
+                              <div class="form-floating mb-3">
+                                  <label for="floatingInput"><strong>Téléphone</strong></label>
+                                  <input type="text" class="form-control" id="floatingInput" name="phone" placeholder="Ex.: 0102030503" value="{{patient.phone}}">
+                              </div>
+                          </div>
+
+                          <div class="col-md-12">
+                              <div class="form-floating mb-3">
+                                  <label for="floatingInput"><strong>Ville</strong></label>
+                                  <input type="text" class="form-control" id="floatingInput" name="mail" placeholder="Ex.: jacky.michel@gmail.com" value="{{patient.mail}}">
+                              </div>
+                          </div>
+
+                          <div class="col-md-12">
+                              <div class="form-floating mb-3">
+                                  <input type="submit" class="btn btn-outline-warning" id="floatingInput" name="submit_modify_users" placeholder="Ex.: jacky.michel@gmail.com" value="Modifier">
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="modal fade" id="add_statut_modal_{{patient.user_key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un statut au patient</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="admin/form.php?add_statut=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}" method="post">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Date</strong></label>
+                                        <input type="date" class="form-control" id="floatingInput" name="date" placeholder="Ex.: MICHEL" value="{{now|date("Y-m-d")}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Sujet</strong></label>
+                                        <input type="text" class="form-control" id="floatingInput" name="subject" placeholder="Ex.: Premier entretien">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Message</strong></label>
+                                        <textarea class="form-control" id="floatingInput" name="message" placeholder="Ex.: L'entretien c'est bien passer etc." ></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <input type="submit" class="btn btn-outline-primary" id="floatingInput" name="add_statut" placeholder="Ex.: jacky.michel@gmail.com" value="Ajouter">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{%for statuts in statut_patient %}
+    <div class="modal fade" id="edit_statut_modal_{{patient.user_key}}_statut_{{statuts.statut_patient_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modifier un statut au patient</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="admin/form.php?edit_statut=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}&statut_id={{statuts.statut_patient_id}}" method="post">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Date</strong></label>
+                                        <input type="date" class="form-control" id="floatingInput" name="date" placeholder="Ex.: MICHEL" value="{{statuts.date|date("Y-m-d")}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Sujet</strong></label>
+                                        <input type="text" class="form-control" id="floatingInput" name="subject" placeholder="Ex.: Premier entretien" value="{{statuts.subject}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Message</strong></label>
+                                        <textarea class="form-control" id="floatingInput" name="message" placeholder="Ex.: L'entretien c'est bien passer etc." >{{statuts.message}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <input type="submit" class="btn btn-outline-warning" id="floatingInput" name="add_statut" placeholder="Ex.: jacky.michel@gmail.com" value="Modifier">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="modal fade" id="delete_statut_modal_{{patient.user_key}}_statut_{{statuts.statut_patient_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Supprimer un statut au patient</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="admin/form.php?delete_statut=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}&statut_id={{statuts.statut_patient_id}}" method="post">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <input type="submit" class="btn btn-outline-success" id="floatingInput" name="add_statut" placeholder="Ex.: jacky.michel@gmail.com" value="Oui">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{%endfor%}
+    <div class="modal fade" id="add_interview_modal_{{patient.user_key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un entretient au patient</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="admin/form.php?add_interviews=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}" method="post">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Date</strong></label>
+                                        <input type="date" class="form-control" id="floatingInput" name="date" placeholder="Ex.: MICHEL" value="{{now|date("Y-m-d")}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Heure</strong></label>
+                                        <input type="time" class="form-control" id="floatingInput" name="time" placeholder="Ex.: MICHEL">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Sujet</strong></label>
+                                        <input type="text" class="form-control" id="floatingInput" name="subject" placeholder="Ex.: Premier entretien">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Message</strong></label>
+                                        <textarea class="form-control" id="floatingInput" name="message" placeholder="Ex.: L'entretien c'est bien passer etc." ></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>URL visio</strong></label>
+                                        <input type="text" class="form-control" id="floatingInput" name="url" placeholder="Ex.: https:www.google.meet.fr">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Situation</strong></label>
+                                        <select class="form-control" id="floatingInput" name="situation" placeholder="Ex.: L'entretien c'est bien passer etc." >
+                                            <option value="1">Visio-conférence</option>
+                                            <option value="2">Présentiel</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <label for="floatingInput"><strong>Statut</strong></label>
+                                        <select class="form-control" id="floatingInput" name="statut" placeholder="Ex.: L'entretien c'est bien passer etc." >
+                                            <option value="1">En cours</option>
+                                            <option value="2">Annuler</option>
+                                            <option value="3">Terminer</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <input type="submit" class="btn btn-outline-primary" id="floatingInput" name="add_interviews" placeholder="Ex.: jacky.michel@gmail.com" value="Modifier">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for interviews in interview %}
+        <div class="modal fade" id="edit_interview_modal_{{patient.user_key}}_interviews_{{interviews.interviews_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un entretient au patient</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="admin/form.php?edit_interviews=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}&interviews_id={{interviews.interviews_id}}" method="post">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-floating mb-3">
+                                            <label for="floatingInput"><strong>Date</strong></label>
+                                            <input type="date" class="form-control" id="floatingInput" name="date" placeholder="Ex.: MICHEL" value="{{interviews.date|date("Y-m-d")}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-floating mb-3">
+                                            <label for="floatingInput"><strong>Heure</strong></label>
+                                            <input type="time" class="form-control" id="floatingInput" name="time" placeholder="Ex.: MICHEL" value="{{interviews.time|date("H:i")}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-3">
+                                            <label for="floatingInput"><strong>Sujet</strong></label>
+                                            <input type="text" class="form-control" id="floatingInput" name="subject" placeholder="Ex.: Premier entretien" value="{{interviews.subject}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-3">
+                                            <label for="floatingInput"><strong>Message</strong></label>
+                                            <textarea class="form-control" id="floatingInput" name="message" placeholder="Ex.: L'entretien c'est bien passer etc." >{{interviews.message}}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-3">
+                                            <label for="floatingInput"><strong>URL visio</strong></label>
+                                            <input type="text" class="form-control" id="floatingInput" name="url" placeholder="Ex.: https:www.google.meet.fr" value="{{interviews.url}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-3">
+                                            <label for="floatingInput"><strong>Situation</strong></label>
+                                            <p>Actuellement:
+                                            {% if interview.situation == 1 %}
+                                                Visio-conférence
+                                            {% elseif interview.situation == 2 %}
+                                                Présentiel
+                                            {% endif %}
+
+                                            </p>
+                                            <select class="form-control" id="floatingInput" name="situation" placeholder="Ex.: L'entretien c'est bien passer etc." >
+                                                <option value="{{interviews.situation}}">Valeur Actuel</option>
+                                                <option value="1">Visio-conférence</option>
+                                                <option value="2">Présentiel</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-3">
+                                            <label for="floatingInput"><strong>Statut</strong></label>
+                                            <p>Actuellement:
+
+                                            {% if interview.statut == 1 %}
+                                                En cours
+                                            {% elseif interview.statut == 2 %}
+                                                Annuler
+                                            {% elseif interview.statut == 3 %}
+                                                Terminer
+                                            {% endif %}
+
+                                            </p>
+                                            <select class="form-control" id="floatingInput" name="statut" placeholder="Ex.: L'entretien c'est bien passer etc." >
+                                                <option value="{{interviews.statut}}">Valeur Actuel</option>
+                                                <option value="1">En cours</option>
+                                                <option value="2">Annuler</option>
+                                                <option value="3">Terminer</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="submit" class="btn btn-outline-primary" id="floatingInput" name="add_interviews" placeholder="Ex.: jacky.michel@gmail.com" value="Modifier">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="delete_interview_modal_{{patient.user_key}}_interviews_{{interviews.interviews_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Supprimer un entretient au patient</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <p>Voulez-vous supprimer cet entretien ?</p>
+                        <form action="admin/form.php?delete_interviews=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}&interviews_id={{interviews.interviews_id}}" method="post">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="submit" class="btn btn-outline-success" id="floatingInput" name="add_interviews" placeholder="Ex.: jacky.michel@gmail.com" value="Oui">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    {% for recommandeds_practitians in recommanded_practitian %}
+        <div class="modal fade" id="delete_recommandeds_practitians_modal_{{patient.user_key}}_recommandeds_practitians_{{recommandeds_practitians.recommandeds_practitians_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Supprimer un praticien au patient</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <p>Voulez-vous supprimer ce praticien ?</p>
+                        <form action="admin/form.php?delete_recommandeds_practitians=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}&recommandeds_practitians_id={{recommandeds_practitians.recommandeds_practitians_id}}" method="post">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="submit" class="btn btn-outline-success" id="floatingInput" name="delete_recommandeds_practitians" placeholder="Ex.: jacky.michel@gmail.com" value="Oui">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endfor %}

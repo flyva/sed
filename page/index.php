@@ -18,9 +18,6 @@ $twig = new Twig_Environment($loader, [
     'cache' => false
 ]);
 
-$req = $db->query("SELECT * FROM ".$_SESSION['table']." INNER JOIN users on users_id =".$_SESSION['user_id']);
-$user_patient = $req->fetch();
-
 if (isset($_GET['print'])){
     $print = unique_patient($_GET['print']);
 }else{$print = "rien";}
@@ -28,6 +25,26 @@ if (isset($_GET['print'])){
 if (isset($_GET['print'])){
     $statut_print = statut_patient($_GET['print']);
 }else{$statut_print = "rien";}
+
+if (isset($_GET['print'])){
+    $admin_get = admin_get($_GET['print']);
+}else{$admin_get = "rien";}
+
+if (isset($_GET['print'])){
+    $recommanded_practitian = practitian_patient($print['id']);
+}else{$recommanded_practitian = "rien";}
+
+if (isset($_GET['edit'])){
+    $edit = $_GET['edit'];
+}else{$edit = "rien";}
+
+if (isset($_GET['delete'])){
+    $delete = $_GET['delete'];
+}else{$delete = "delete";}
+
+if (isset($_GET['add'])){
+    $add = $_GET['add'];
+}else{$add = "add";}
 
 switch ($page) {
     case $_GET['p'];
@@ -38,11 +55,16 @@ switch ($page) {
             "count_practitian" => number_practitian(),
             "count_admin" => number_admins(),
             "communication" => communication(),
-            "patient" => patient(),
-            "adhesion" => adhesion(),
+            "patients" => patient(),
+            //"adhesion" => adhesion(),
             "interview" => interview(),
             "unique_patient" => $print,
-            "statut_patient" => $statut_print
+            "statut_patient" => $statut_print,
+            "admin_get" => $admin_get,
+            "recommanded_practitian" => $recommanded_practitian,
+            "edit" => $edit,
+            "delete" => $delete,
+            "add" => $add
 
         ]);
         break;

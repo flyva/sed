@@ -1,12 +1,9 @@
 <?php
-function delete($table, $id, $id_user, $label_delete){
-    require "../../database.php";
-
+function delete($table, $id){
+global $db;
 // Supprimer
 
     $req = $db->query('DELETE FROM '. "$table" .' WHERE id = ' .$id);
-
-    log_db($label_delete, $id_user);
 }
 
 function delete_foreach($table, $id){
@@ -18,10 +15,8 @@ function delete_foreach($table, $id){
 }
 
 
-function update_table($table, $id, $parameter, $log, $id_user){
-    require "../../database.php";
-
-
+function update_table($table, $id,  $parameter) {
+global $db;
     $parameter_prepare = "";
     foreach ($parameter as $index => $params):
 
@@ -38,21 +33,14 @@ function update_table($table, $id, $parameter, $log, $id_user){
         $parameter_execute["$params"] = $_POST["$params"];
     endforeach;
 
-    var_dump($parameter_prepare);
-    var_dump($parameter_execute);
-
 
     $req = $db->prepare('UPDATE '.$table.' SET '.$parameter_prepare.' WHERE id ='.$id);
     $req->execute($parameter_execute);
 
-    log_db($log, $id_user);
-
-
 }
 
-function insert_table($table, $parameter, $log, $id_user){
-    require "../../database.php";
-
+function insert_table($table, $parameter){
+global $db;
     $parameter_prepare = "";
     foreach ($parameter as $index => $params):
 
@@ -71,8 +59,6 @@ function insert_table($table, $parameter, $log, $id_user){
 
     $req = $db->prepare('INSERT INTO '.$table.' SET '.$parameter_prepare);
     $req->execute($parameter_execute);
-
-    log_db($log, $id_user);
 }
 
 function log_db($log, $id_user){
