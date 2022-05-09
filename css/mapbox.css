@@ -1,0 +1,7 @@
+mapbox-search-listbox div div:nth-child(2) {
+    z-index: 1050;
+}
+
+div.dataTables_wrapper {
+    margin-bottom: 3em;
+}

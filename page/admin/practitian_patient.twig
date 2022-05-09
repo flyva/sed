@@ -1,0 +1,140 @@
+{% extends 'template/layout.twig' %}
+
+
+{% block title %}
+    <title>Praticien| {{unique_patient.first_name}} {{unique_patient.last_name}}</title>
+{% endblock %}
+{% block topbar %}
+    <p>LALALALALA</p>
+{% endblock %}
+{% block content %}
+    <!-- Load the `mapbox-gl-geocoder` plugin. -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <div class="col-md-12">
+        <div class="row">
+            <div id='map' style='width: 60%; height: 500px;'></div>
+        </div>
+    </div>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2VibG9lYiIsImEiOiJjbDJ3MWE0OWUwaGUxM2ZxbWI1ZTlucjdtIn0.q-sLFfayOzT5jV8PQLGvvw';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/sebloeb/cl2w0rz9c000e15pff4bz9ft9', // style URL
+            center: [{{city.ville_longitude_deg}}, {{city.ville_latitude_deg}}], // starting position [lng, lat]
+            zoom: 9 // starting zoom
+        });
+
+        map.addControl(
+            new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                mapboxgl: mapboxgl
+            })
+        );
+
+        map.on('load', () => {
+// Add an image to use as a custom marker
+            map.loadImage(
+                'image/marker_users_practitian.png',
+                (error, image) => {
+                    if (error) throw error;
+                    map.addImage('custom-marker', image);
+// Add a GeoJSON source with 2 points
+                    map.addSource('points', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                                {% for practitian in practitians %}
+                                {
+// feature for Mapbox DC
+                                    'type': 'Feature',
+                                    'geometry': {
+                                        'type': 'Point',
+                                        'coordinates': [
+                                            {{city.ville_longitude_deg}}, {{city.ville_latitude_deg}}
+                                        ]
+                                    },
+                                    'properties': {
+                                        'title': '{{unique_patient.last_name}} {{unique_patient.first_name}}'
+                                    }
+                                },
+                                {% endfor %}
+                            ]
+                        }
+                    });
+
+// Add a symbol layer
+                    map.addLayer({
+                        'id': 'points',
+                        'type': 'symbol',
+                        'source': 'points',
+                        'layout': {
+                            'icon-image': 'custom-marker',
+// get the title name from the source's "title" property
+                            'text-field': ['get', 'title'],
+                            'text-font': [
+                                'Open Sans Semibold',
+                                'Arial Unicode MS Bold'
+                            ],
+                            'text-offset': [0, 1.25],
+                            'text-anchor': 'top'
+                        }
+                    });
+                }
+            );
+        });
+
+        map.on('load', () => {
+// Add an image to use as a custom marker
+            map.loadImage(
+                'image/marker_users_patient.png',
+                (error, image) => {
+                    if (error) throw error;
+                    map.addImage('custom-marker', image);
+// Add a GeoJSON source with 2 points
+                    map.addSource('points', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                                {
+// feature for Mapbox DC
+                                    'type': 'Feature',
+                                    'geometry': {
+                                        'type': 'Point',
+                                        'coordinates': [
+                                            {{city.ville_longitude_deg}}, {{city.ville_latitude_deg}}
+                                        ]
+                                    },
+                                    'properties': {
+                                        'title': '{{unique_patient.last_name}} {{unique_patient.first_name}}'
+                                    }
+                                }
+                            ]
+                        }
+                    });
+
+// Add a symbol layer
+                    map.addLayer({
+                        'id': 'points',
+                        'type': 'symbol',
+                        'source': 'points',
+                        'layout': {
+                            'icon-image': 'custom-marker',
+// get the title name from the source's "title" property
+                            'text-field': ['get', 'title'],
+                            'text-font': [
+                                'Open Sans Semibold',
+                                'Arial Unicode MS Bold'
+                            ],
+                            'text-offset': [0, 1.25],
+                            'text-anchor': 'top'
+                        }
+                    });
+                }
+            );
+        });
+    </script>
+{% endblock %}

@@ -27,6 +27,14 @@
     <!-- Custom styles for this page -->
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <!-- MapBox -->
+    <link href="../css/mapbox.css" rel="stylesheet">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
+
+    <script id="search-js" defer="" src="https://api.mapbox.com/search-js/v1.0.0-beta.9/web.js"></script>
+
+
 </head>
 
 <body id="page-top">
@@ -92,17 +100,31 @@
 <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-<!-- Page level plugins -->
-<script src="../vendor/chart.js/Chart.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="../js/demo/chart-area-demo.js"></script>
-<script src="../js/demo/chart-pie-demo.js"></script>
 
 <!-- Page level custom scripts -->
 <script src="../js/demo/datatables-demo.js"></script>
 
+<!-- MapBox -->
+<script>
+    const ACCESS_TOKEN = 'pk.eyJ1Ijoic2VibG9lYiIsImEiOiJjbDJ3MWE0OWUwaGUxM2ZxbWI1ZTlucjdtIn0.q-sLFfayOzT5jV8PQLGvvw';
 
+    const script = document.getElementById('search-js');
+    script.onload = () => {
+        const elements = document.querySelectorAll('mapbox-address-autofill');
+        for (const autofill of elements) {
+            autofill.accessToken = ACCESS_TOKEN;
+            autofill.addEventListener('suggest', (event) => {
+                window.dispatchEvent(new Event('resize'));
+            });
+        }
+    };
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('table.display').DataTable();
+    } );
+</script>
 
 </body>
 

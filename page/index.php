@@ -6,6 +6,7 @@ require '../requetes/practitian.php';
 require '../requetes/admin.php';
 require '../requetes/communication.php';
 require '../requetes/user.php';
+require '../requetes/cities.php';
 
 session_start();
 
@@ -64,7 +65,10 @@ switch ($page) {
             "recommanded_practitian" => $recommanded_practitian,
             "edit" => $edit,
             "delete" => $delete,
-            "add" => $add
+            "add" => $add,
+            "page" => $_GET['p'],
+            "city" => city(),
+            "practitians" => practitian()
 
         ]);
         break;
@@ -74,3 +78,5 @@ switch ($page) {
         echo $twig->render('404/404.twig');
         break;
 }
+
+var_dump(city());

@@ -1,5 +1,10 @@
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    {% if page == "practitian_patient" %}
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Praticien(s) à proximité de <strong>{{unique_patient.first_name}} {{unique_patient.last_name}}</strong></h1>
+        </div>
+    {% endif %}
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">

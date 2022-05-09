@@ -1,4 +1,5 @@
 
+{% if page == unique_patient %}
 <!-- Modal unique patient -->
 {% for patient in patients %}
 <div class="modal fade" id="edit_user_modal_{{patient.user_key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -39,19 +40,23 @@
                               <div class="form-floating mb-3">
                                   <H5>Adresse</H5>
                                   <label for="floatingInput"><strong>Numéro, Rue</strong></label>
-                                  <input type="text" class="form-control" id="floatingInput" name="address_street" placeholder="Ex.: 33, rue de la bute" value="{{patient.address_street}}">
+                                  <mapbox-address-autofill>
+                                    <input type="text" class="form-control" id="floatingInput" name="address_street" placeholder="Ex.: 33, rue de la bute" value="{{patient.address_street}}" autocomplete="address-line1">
+                                  </mapbox-address-autofill>
                               </div>
                           </div>
                           <div class="col-md-5">
                               <div class="form-floating mb-3">
                                   <label for="floatingInput"><strong>Code Postal</strong></label>
-                                  <input type="text" class="form-control" id="floatingInput" name="address_cp" placeholder="Ex.: 444444" value="{{patient.address_cp}}">
+                                  <input type="text" class="form-control" id="floatingInput" name="address_cp" placeholder="Ex.: 444444" value="{{patient.address_cp}}" autocomplete="postal-code" disabled>
+                                  <input type="hidden" class="form-control" id="floatingInput" name="address_cp" placeholder="Ex.: 444444" value="{{patient.address_cp}}" autocomplete="postal-code">
                               </div>
                           </div>
                           <div class="col-md-5">
                               <div class="form-floating mb-3">
                                   <label for="floatingInput"><strong>Ville</strong></label>
-                                  <input type="text" class="form-control" id="floatingInput" name="address_city" placeholder="Ex.: Piriac-sur-mer" value="{{patient.address_city}}">
+                                  <input type="text" class="form-control" id="floatingInput" name="address_city" placeholder="Ex.: Piriac-sur-mer" value="{{patient.address_city}}" autocomplete="address-level2" disabled>
+                                  <input type="hidden" class="form-control" id="floatingInput" name="address_city" placeholder="Ex.: Piriac-sur-mer" value="{{patient.address_city}}" autocomplete="address-level2">
                               </div>
                           </div>
 
@@ -486,3 +491,5 @@
     {% endfor %}
 
 {% endfor %}
+
+{% endif %}
