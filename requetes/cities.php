@@ -1,30 +1,26 @@
 <?php
 // ville patients
-function city (){
+function city_patient (){
     global $db;
 
     $print = $_GET['print'];
-    $req = $db->query("SELECT * FROM patients INNER JOIN users ON patients.users_id = users.id WHERE users.user_key = '$print' ");
-    $city_patient = $req->fetch();
+    $req = $db->query("SELECT patients.id as patients_id, address_street, address_cp, address_city, users_id, mail, first_name, last_name, avatar, ville_slug, ville_longitude_deg as longitude, ville_latitude_deg as latitude FROM patients 
+    INNER JOIN users ON patients.users_id = users.id
+    INNER JOIN villes ON patients.address_city = villes.ville_slug");
+    $city_patients = $req->fetch();
 
-    $city = $city_patient['address_city'];
-
-    $req = $db->query("SELECT * FROM villes WHERE ville_slug = '$city'");
-    $city_coordonate = $req->fetch();
-    return $city_coordonate;
+    return $city_patients;
 }
 
-// ville patients
-function city (){
+// ville practitian
+function city_practitian_all (){
     global $db;
 
-    $print = $_GET['print'];
-    $req = $db->query("SELECT * FROM patients INNER JOIN users ON patients.users_id = users.id WHERE users.user_key = '$print' ");
-    $city_patient = $req->fetch();
+    $req = $db->query("SELECT practitian.id as practitian_id, speciality, description, address_street, address_cp, address_city, url_web, users_id, mail, first_name, last_name, avatar, ville_slug, ville_longitude_deg as longitude, ville_latitude_deg as latitude FROM practitian 
+    INNER JOIN users ON practitian.users_id = users.id
+    INNER JOIN villes ON practitian.address_city = villes.ville_slug");
+    $city_practitian = $req->fetchAll();
 
-    $city = $city_patient['address_city'];
 
-    $req = $db->query("SELECT * FROM villes WHERE ville_slug = '$city'");
-    $city_coordonate = $req->fetch();
-    return $city_coordonate;
+    return $city_practitian;
 }

@@ -18,7 +18,7 @@ function practitian_patient ($patients_id){
 // afficher pratitian
 function practitian (){
     global $db;
-    $req = $db->query("SELECT mail, last_name, first_name, avatar, phone, user_key, type, speciality, address_street, address_cp, address_city, url_web  FROM users INNER JOIN practitian ON users.id = practitian.users_id");
+    $req = $db->query("SELECT mail, last_name, first_name, avatar, phone, user_key, type, speciality, address_street, address_cp, address_city, url_web, users_id  FROM users INNER JOIN practitian ON users.id = practitian.users_id");
     $practitian = $req->fetchAll();
     return $practitian;
 }

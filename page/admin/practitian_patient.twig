@@ -13,7 +13,60 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
     <div class="col-md-12">
         <div class="row">
-            <div id='map' style='width: 60%; height: 500px;'></div>
+            <div class="col-md-6">
+                <div id='map' style='width: 100%; height: 500px;'></div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow col-12">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-stethoscope"></i> Praticiens</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered display" id="" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Titre</th>
+                                    <th scope="col">Spécialité</th>
+                                    <th scope="col">Nom & Prénom</th>
+                                    <th scope="col">Ville</th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {%for practitian in practitians %}
+                                    <tr>
+                                        <th scope="row">{{practitian.users_id}}</th>
+                                        <th scope="row">{{practitian.type}}</th>
+                                        <td>{{practitian.specility}}</td>
+                                        <td>{{practitian.last_name}} {{practitian.first_name}}</td>
+                                        <td>{{practitian.address_city}}</td>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                    </tr>
+                                {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="col-md-6">
+            <div class="card shadow col-12">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-stethoscope"></i> Praticiens</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -22,8 +75,8 @@
         const map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/sebloeb/cl2w0rz9c000e15pff4bz9ft9', // style URL
-            center: [{{city.ville_longitude_deg}}, {{city.ville_latitude_deg}}], // starting position [lng, lat]
-            zoom: 9 // starting zoom
+            center: [{{city_patient.longitude}}, {{city_patient.latitude}}], // starting position [lng, lat]
+            zoom: 11 // starting zoom
         });
 
         map.addControl(
@@ -33,108 +86,17 @@
             })
         );
 
-        map.on('load', () => {
-// Add an image to use as a custom marker
-            map.loadImage(
-                'image/marker_users_practitian.png',
-                (error, image) => {
-                    if (error) throw error;
-                    map.addImage('custom-marker', image);
-// Add a GeoJSON source with 2 points
-                    map.addSource('points', {
-                        'type': 'geojson',
-                        'data': {
-                            'type': 'FeatureCollection',
-                            'features': [
-                                {% for practitian in practitians %}
-                                {
-// feature for Mapbox DC
-                                    'type': 'Feature',
-                                    'geometry': {
-                                        'type': 'Point',
-                                        'coordinates': [
-                                            {{city.ville_longitude_deg}}, {{city.ville_latitude_deg}}
-                                        ]
-                                    },
-                                    'properties': {
-                                        'title': '{{unique_patient.last_name}} {{unique_patient.first_name}}'
-                                    }
-                                },
-                                {% endfor %}
-                            ]
-                        }
-                    });
+        // Create a default Marker and add it to the map.
+        const marker1 = new mapboxgl.Marker({color: '#BE7781'})
+            .setLngLat([{{city_patient.longitude}}, {{city_patient.latitude}}])
+            .addTo(map);
 
-// Add a symbol layer
-                    map.addLayer({
-                        'id': 'points',
-                        'type': 'symbol',
-                        'source': 'points',
-                        'layout': {
-                            'icon-image': 'custom-marker',
-// get the title name from the source's "title" property
-                            'text-field': ['get', 'title'],
-                            'text-font': [
-                                'Open Sans Semibold',
-                                'Arial Unicode MS Bold'
-                            ],
-                            'text-offset': [0, 1.25],
-                            'text-anchor': 'top'
-                        }
-                    });
-                }
-            );
-        });
-
-        map.on('load', () => {
-// Add an image to use as a custom marker
-            map.loadImage(
-                'image/marker_users_patient.png',
-                (error, image) => {
-                    if (error) throw error;
-                    map.addImage('custom-marker', image);
-// Add a GeoJSON source with 2 points
-                    map.addSource('points', {
-                        'type': 'geojson',
-                        'data': {
-                            'type': 'FeatureCollection',
-                            'features': [
-                                {
-// feature for Mapbox DC
-                                    'type': 'Feature',
-                                    'geometry': {
-                                        'type': 'Point',
-                                        'coordinates': [
-                                            {{city.ville_longitude_deg}}, {{city.ville_latitude_deg}}
-                                        ]
-                                    },
-                                    'properties': {
-                                        'title': '{{unique_patient.last_name}} {{unique_patient.first_name}}'
-                                    }
-                                }
-                            ]
-                        }
-                    });
-
-// Add a symbol layer
-                    map.addLayer({
-                        'id': 'points',
-                        'type': 'symbol',
-                        'source': 'points',
-                        'layout': {
-                            'icon-image': 'custom-marker',
-// get the title name from the source's "title" property
-                            'text-field': ['get', 'title'],
-                            'text-font': [
-                                'Open Sans Semibold',
-                                'Arial Unicode MS Bold'
-                            ],
-                            'text-offset': [0, 1.25],
-                            'text-anchor': 'top'
-                        }
-                    });
-                }
-            );
-        });
+        {% for practitian in city_practitian %}
+        // Create a default Marker and add it to the map.
+        const marker{{practitian.users_id}} = new mapboxgl.Marker({color: '#668AB2'})
+            .setLngLat([{{practitian.longitude}}, {{practitian.latitude}}])
+            .setPopup(new mapboxgl.Popup().setHTML("<br><h5>{{practitian.users_id}}</h5>")) // add popup
+            .addTo(map);
+        {% endfor %}
     </script>
 {% endblock %}

@@ -19,17 +19,29 @@ $twig = new Twig_Environment($loader, [
     'cache' => false
 ]);
 
-if (isset($_GET['print'])){
+if (isset($_GET['print'])) {
     $print = unique_patient($_GET['print']);
-}else{$print = "rien";}
-
-if (isset($_GET['print'])){
     $statut_print = statut_patient($_GET['print']);
-}else{$statut_print = "rien";}
-
-if (isset($_GET['print'])){
     $admin_get = admin_get($_GET['print']);
-}else{$admin_get = "rien";}
+    if ($_GET['p'] !== "unique_patient"){
+        $city_practitian = city_practitian_all();
+        $city_patient= city_patient();
+
+    }else{
+        $city_practitian = "rien";
+        $city_patient = "rien";
+
+    }
+
+
+
+}else{$print = "rien";
+    $statut_print = "rien";
+    $admin_get = "rien";
+    $city_practitian = "rien";
+    $city_patient = "rien";
+
+}
 
 if (isset($_GET['print'])){
     $recommanded_practitian = practitian_patient($print['id']);
@@ -47,29 +59,46 @@ if (isset($_GET['add'])){
     $add = $_GET['add'];
 }else{$add = "add";}
 
+
 switch ($page) {
     case $_GET['p'];
         echo $twig->render($_SESSION['type'] . '/' . $_GET['p'] . '.twig', [
+
+            // Session
             "type" => $_SESSION["type"],
             "user_patient" => user($_SESSION['table'], $_SESSION['user_id']),
+
+            // COUNT USERS
             "count_patient" => number_patient(),
             "count_practitian" => number_practitian(),
             "count_admin" => number_admins(),
+
+            // COMMUNICATION
             "communication" => communication(),
+
+            // PATIENTS
             "patients" => patient(),
             //"adhesion" => adhesion(),
             "interview" => interview(),
             "unique_patient" => $print,
             "statut_patient" => $statut_print,
-            "admin_get" => $admin_get,
             "recommanded_practitian" => $recommanded_practitian,
+            "city_patient" => $city_patient,
+
+            //PRACTITIAN
+            "city_practitian" => $city_practitian,
+            "practitians" => practitian(),
+
+            // ADMIN
+            "admin_get" => $admin_get,
+
+            // ERRORS
             "edit" => $edit,
             "delete" => $delete,
             "add" => $add,
-            "page" => $_GET['p'],
-            "city" => city(),
-            "practitians" => practitian()
 
+            // GET PAGE
+            "page" => $_GET['p']
         ]);
         break;
 
@@ -78,5 +107,3 @@ switch ($page) {
         echo $twig->render('404/404.twig');
         break;
 }
-
-var_dump(city());

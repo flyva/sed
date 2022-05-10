@@ -76,7 +76,7 @@
                             <tbody>
                             {%for statuts in statut_patient %}
                                 <tr>
-                                    <th scope="row">{{statuts.date |date("m-d-Y") }}</th>
+                                    <th scope="row">{{statuts.date |date("d-m-Y") }}</th>
                                     <td>{{statuts.subject}}</td>
                                     <td>{{statuts.message}}</td>
                                     <td>
@@ -125,7 +125,7 @@
                             <tbody>
                             {%for interviews in interview %}
                                 <tr>
-                                    <th scope="row">{{interviews.date |date("m-d-Y") }}/{{interviews.time |date("H:i")}}</th>
+                                    <th scope="row">{{interviews.date |date("d-m-Y") }}/{{interviews.time |date("H:i")}}</th>
                                     <td>{{interviews.subject}}</td>
                                     <td>{{interviews.message}}</td>
                                     <td>
