@@ -2,7 +2,7 @@
 {% if page == 'unique_patient' %}
 <!-- Modal unique patient -->
 {% for patient in patients %}
-<div class="modal fade" id="edit_user_modal_{{patient.user_key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="edit_user_modal_{{patient.users_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="admin/form.php?modify_user_patient=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}" method="post">
+                <form action="admin/form.php?modify_user_patient=1&id={{patient.users_id}}&users_id={{patient.users_id}}&id={{patient.users_id}}" method="post">
                     <div class="col-md-12">
                       <div class="row">
                           <div class="col-md-5">
@@ -88,7 +88,7 @@
     </div>
 </div>
 
-    <div class="modal fade" id="add_statut_modal_{{patient.user_key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="add_statut_modal_{{patient.users_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -99,7 +99,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="admin/form.php?add_statut=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}" method="post">
+                    <form action="admin/form.php?add_statut=1&id={{patient.users_id}}&patients_id={{patient.patients_id}}" method="post">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-5">
@@ -139,7 +139,7 @@
         </div>
     </div>
 {%for statuts in statut_patient %}
-    <div class="modal fade" id="edit_statut_modal_{{patient.user_key}}_statut_{{statuts.statut_patient_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="edit_statut_modal_{{patient.users_id}}_statut_{{statuts.statut_patient_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -150,7 +150,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="admin/form.php?edit_statut=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}&statut_id={{statuts.statut_patient_id}}" method="post">
+                    <form action="admin/form.php?edit_statut=1&id={{patient.users_id}}&users_id={{patient.users_id}}&id={{patient.users_id}}&statut_id={{statuts.statut_patient_id}}" method="post">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-5">
@@ -197,7 +197,7 @@
 
 
 
-    <div class="modal fade" id="delete_statut_modal_{{patient.user_key}}_statut_{{statuts.statut_patient_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="delete_statut_modal_{{patient.users_id}}_statut_{{statuts.statut_patient_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -208,7 +208,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="admin/form.php?delete_statut=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}&statut_id={{statuts.statut_patient_id}}" method="post">
+                    <form action="admin/form.php?delete_statut=1&id={{patient.users_id}}&&statut_id={{statuts.statut_patient_id}}" method="post">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12">
@@ -227,7 +227,7 @@
         </div>
     </div>
 {%endfor%}
-    <div class="modal fade" id="add_interview_modal_{{patient.user_key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="add_interview_modal_{{patient.users_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -238,7 +238,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="admin/form.php?add_interviews=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}" method="post">
+                    <form action="admin/form.php?add_interviews=1&id={{patient.users_id}}&patients_id={{patient.patients_id}}" method="post">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-5">
@@ -299,7 +299,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-floating mb-3">
-                                        <input type="submit" class="btn btn-outline-primary" id="floatingInput" name="add_interviews" placeholder="Ex.: jacky.michel@gmail.com" value="Modifier">
+                                        <input type="submit" class="btn btn-outline-primary" id="floatingInput" name="add_interviews" placeholder="Ex.: jacky.michel@gmail.com" value="Ajouter">
                                     </div>
                                 </div>
                             </div>
@@ -313,7 +313,7 @@
         </div>
     </div>
     {% for interviews in interview %}
-        <div class="modal fade" id="edit_interview_modal_{{patient.user_key}}_interviews_{{interviews.interviews_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="edit_interview_modal_{{patient.users_id}}_interviews_{{interviews.interviews_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -324,7 +324,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="admin/form.php?edit_interviews=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}&interviews_id={{interviews.interviews_id}}" method="post">
+                        <form action="admin/form.php?edit_interviews=1&id={{patient.users_id}}&&interviews_id={{interviews.interviews_id}}" method="post">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-5">
@@ -420,7 +420,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="delete_interview_modal_{{patient.user_key}}_interviews_{{interviews.interviews_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="delete_interview_modal_{{patient.users_id}}_interviews_{{interviews.interviews_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -433,7 +433,7 @@
                     <div class="modal-body">
 
                         <p>Voulez-vous supprimer cet entretien ?</p>
-                        <form action="admin/form.php?delete_interviews=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}&interviews_id={{interviews.interviews_id}}" method="post">
+                        <form action="admin/form.php?delete_interviews=1&id={{patient.users_id}}&interviews_id={{interviews.interviews_id}}" method="post">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -455,7 +455,7 @@
     {% endfor %}
 
     {% for recommandeds_practitians in recommanded_practitian %}
-        <div class="modal fade" id="delete_recommandeds_practitians_modal_{{patient.user_key}}_recommandeds_practitians_{{recommandeds_practitians.recommandeds_practitians_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="delete_recommandeds_practitians_modal_{{patient.users_id}}_recommandeds_practitians_{{recommandeds_practitians.recommandeds_practitians_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -468,7 +468,7 @@
                     <div class="modal-body">
 
                         <p>Voulez-vous supprimer ce praticien ?</p>
-                        <form action="admin/form.php?delete_recommandeds_practitians=1&print={{patient.user_key}}&users_id={{patient.users_id}}&patients_id={{patient.patients_id}}&recommandeds_practitians_id={{recommandeds_practitians.recommandeds_practitians_id}}" method="post">
+                        <form action="admin/form.php?delete_recommandeds_practitians=1&id={{patient.users_id}}&recommandeds_practitians_id={{recommandeds_practitians.recommandeds_practitians_id}}" method="post">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">

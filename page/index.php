@@ -19,33 +19,34 @@ $twig = new Twig_Environment($loader, [
     'cache' => false
 ]);
 
-if (isset($_GET['print'])) {
-    $print = unique_patient($_GET['print']);
-    $statut_print = statut_patient($_GET['print']);
-    $admin_get = admin_get($_GET['print']);
+if (isset($_GET['id'])) {
+    $unique_patient = unique_patient($_GET['id']);
+    $statut_patients = statut_patient($_GET['id']);
+   // $admin_get = admin_get($_GET['id']);
+    $interviews = interview($_GET['id']);
+    $recommanded_practitian = practitian_patient($_GET['id']);
     if ($_GET['p'] !== "unique_patient"){
         $city_practitian = city_practitian_all();
-        $city_patient= city_patient();
+        $city_patients = city_patient();
+
 
     }else{
         $city_practitian = "rien";
-        $city_patient = "rien";
+        $city_patients = "rien";
 
     }
 
 
 
-}else{$print = "rien";
-    $statut_print = "rien";
-    $admin_get = "rien";
+}else{$unique_patient = "rien";
+    $statut_patients = "rien";
+   // $admin_get = "rien";
     $city_practitian = "rien";
-    $city_patient = "rien";
+    $city_patients = "rien";
+    $interviews = "riens";
+    $recommanded_practitian = "rien";
 
 }
-
-if (isset($_GET['print'])){
-    $recommanded_practitian = practitian_patient($print['id']);
-}else{$recommanded_practitian = "rien";}
 
 if (isset($_GET['edit'])){
     $edit = $_GET['edit'];
@@ -79,18 +80,18 @@ switch ($page) {
             // PATIENTS
             "patients" => patient(),
             //"adhesion" => adhesion(),
-            "interview" => interview(),
-            "unique_patient" => $print,
-            "statut_patient" => $statut_print,
+            "interview" => $interviews,
+            "unique_patient" => $unique_patient,
+            "statut_patient" => $statut_patients,
             "recommanded_practitian" => $recommanded_practitian,
-            "city_patient" => $city_patient,
+            "city_patient" => $city_patients,
 
             //PRACTITIAN
             "city_practitian" => $city_practitian,
             "practitians" => practitian(),
 
             // ADMIN
-            "admin_get" => $admin_get,
+           // "admin_get" => $admin_get,
 
             // ERRORS
             "edit" => $edit,

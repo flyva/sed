@@ -34,7 +34,7 @@
             <div class="card shadow col-3">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-user"></i> Informations
-                        <a class="btn btn-sm btn-outline-warning" href="#" data-toggle="modal" data-target="#edit_user_modal_{{unique_patient.user_key}}">Modifier
+                        <a class="btn btn-sm btn-outline-warning" href="#" data-toggle="modal" data-target="#edit_user_modal_{{unique_patient.users_id}}">Modifier
                             <span class="fa fa-edit"></span>
                         </a>
                     </h6>
@@ -57,7 +57,7 @@
             <div class="card shadow col-md-6">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-heart"></i> Suivi
-                        <a class="btn btn-sm btn-outline-primary" href="#" data-toggle="modal" data-target="#add_statut_modal_{{unique_patient.user_key}}">Ajouter
+                        <a class="btn btn-sm btn-outline-primary" href="#" data-toggle="modal" data-target="#add_statut_modal_{{unique_patient.users_id}}">Ajouter
                             <span class="fa fa-plus"></span>
                         </a>
                     </h6>
@@ -80,11 +80,11 @@
                                     <td>{{statuts.subject}}</td>
                                     <td>{{statuts.message}}</td>
                                     <td>
-                                        <a class="btn btn-sm btn-outline-warning" href="#" data-toggle="modal" data-target="#edit_statut_modal_{{unique_patient.user_key}}_statut_{{statuts.statut_patient_id}}">Modifier
+                                        <a class="btn btn-sm btn-outline-warning" href="#" data-toggle="modal" data-target="#edit_statut_modal_{{unique_patient.users_id}}_statut_{{statuts.statut_patient_id}}">Modifier
                                             <span class="fa fa-edit"></span>
                                         </a>
 
-                                        <a class="btn btn-sm btn-outline-danger" href="#" data-toggle="modal" data-target="#delete_statut_modal_{{unique_patient.user_key}}_statut_{{statuts.statut_patient_id}}">Supprimer
+                                        <a class="btn btn-sm btn-outline-danger" href="#" data-toggle="modal" data-target="#delete_statut_modal_{{unique_patient.users_id}}_statut_{{statuts.statut_patient_id}}">Supprimer
                                             <span class="fa fa-trash"></span>
                                         </a>
                                     </td>
@@ -103,7 +103,7 @@
             <div class="card shadow col-12">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-calendar"></i> Entretiens
-                        <a class="btn btn-sm btn-outline-primary" href="#" data-toggle="modal" data-target="#add_interview_modal_{{unique_patient.user_key}}">Ajouter
+                        <a class="btn btn-sm btn-outline-primary" href="#" data-toggle="modal" data-target="#add_interview_modal_{{unique_patient.users_id}}">Ajouter
                             <span class="fa fa-plus"></span>
                         </a>
                     </h6>
@@ -149,14 +149,14 @@
 
                                     </td>
                                     <td>
-                                        {{admin_get.first_name}} {{admin_get.last_name}}
+                                        {{interviews.first_name}} {{interviews.last_name}}
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-outline-warning" href="#" data-toggle="modal" data-target="#edit_interview_modal_{{unique_patient.user_key}}_interviews_{{interviews.interviews_id}}">Modifier
+                                        <a class="btn btn-sm btn-outline-warning" href="#" data-toggle="modal" data-target="#edit_interview_modal_{{unique_patient.users_id}}_interviews_{{interviews.interviews_id}}">Modifier
                                             <span class="fa fa-edit"></span>
                                         </a>
 
-                                        <a class="btn btn-sm btn-outline-danger" href="#" data-toggle="modal" data-target="#delete_interview_modal_{{unique_patient.user_key}}_interviews_{{interviews.interviews_id}}">Supprimer
+                                        <a class="btn btn-sm btn-outline-danger" href="#" data-toggle="modal" data-target="#delete_interview_modal_{{unique_patient.users_id}}_interviews_{{interviews.interviews_id}}">Supprimer
                                             <span class="fa fa-trash"></span>
                                         </a>
                                     </td>
@@ -175,7 +175,7 @@
             <div class="card shadow col-12">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-stethoscope"></i> Praticien
-                        <a class="btn btn-sm btn-outline-primary" href="index.php?p=practitian_patient&print={{unique_patient.user_key}}" >Ajouter
+                        <a class="btn btn-sm btn-outline-primary" href="index.php?p=practitian_patient&id={{unique_patient.users_id}}" >Ajouter
                             <span class="fa fa-plus"></span>
                         </a>
                     </h6>
@@ -232,7 +232,7 @@
                                         <a href="{{recommandeds_practitians.url_web}}" class="btn btn-sm btn-outline-primary">Accéder au site</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-outline-danger" href="#" data-toggle="modal" data-target="#delete_recommandeds_practitians_modal_{{unique_patient.user_key}}_recommandeds_practitians_{{recommandeds_practitians.recommandeds_practitians_id}}">Supprimer du dossier
+                                        <a class="btn btn-sm btn-outline-danger" href="#" data-toggle="modal" data-target="#delete_recommandeds_practitians_modal_{{unique_patient.users_id}}_recommandeds_practitians_{{recommandeds_practitians.recommandeds_practitians_id}}">Supprimer du dossier
                                             <span class="fa fa-trash"></span>
                                         </a>
                                     </td>

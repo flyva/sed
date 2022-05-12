@@ -17,6 +17,7 @@
     if (password_verify($_POST['password'], $user['password']) == 1){
         session_start();
         $_SESSION["user_id"] = $user['id'];
+        $_SESSION["admin_id"] = $admin['id'];
         $_SESSION["full_name"] =$user['last_name']." ".$user['first_name'];
        if ($admin['id'] != null){
            header('location:../../page/index.php?p=admin');

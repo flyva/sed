@@ -45,13 +45,13 @@
                             {% endif %}
                             </td>
                             <td>
-                                    <h4 style="color: white"><span class="badge bg-info">{{ interviews.date|date("m/d/Y") }}</span></h4>
+                                    <h4 style="color: white"><span class="badge bg-info">{{ patient.date|date("m/d/Y") }}</span></h4>
                             </td>
                             <td>
-                                <a class="btn btn-outline-dark" href="index.php?p=print_patient&print={{patient.user_key}}">
+                                <a class="btn btn-outline-dark" href="index.php?p=print_patient&id={{patient.users_id}}">
                                 <span class="fa fa-print"></span>
                                 </a>
-                                <a class="btn btn-outline-dark" href="index.php?p=unique_patient&print={{patient.user_key}}">
+                                <a class="btn btn-outline-dark" href="index.php?p=unique_patient&id={{patient.users_id}}">
                                     <span class="fa fa-eye"></span>
                                 </a>
                             </td>

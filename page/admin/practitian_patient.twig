@@ -38,8 +38,33 @@
                                 {%for practitian in practitians %}
                                     <tr>
                                         <th scope="row">{{practitian.users_id}}</th>
-                                        <th scope="row">{{practitian.type}}</th>
-                                        <td>{{practitian.specility}}</td>
+
+                                        <th scope="row">
+
+                                            {% if practitian.type == 1 %}
+                                                Docteur
+                                            {%elseif practitian.type == 2 %}
+                                                Chirurgien
+                                            {% elseif practitian.type == 3 %}
+                                                Infirmier
+                                            {%elseif practitian.type == 4 %}
+                                                Aide Soignant
+                                            {% elseif practitian.type == 5 %}
+                                                Psychologue
+                                            {% endif %}
+
+                                        </th>
+                                        <td>
+
+                                            {% if practitian.speciality == 1 %}
+                                                Généraliste
+                                            {% elseif practitian.speciality == 2 %}
+                                                Bariatrique
+                                            {% elseif practitian.speciality == 3 %}
+                                                Psychologie
+                                            {% endif %}
+
+                                        </td>
                                         <td>{{practitian.last_name}} {{practitian.first_name}}</td>
                                         <td>{{practitian.address_city}}</td>
                                         <td>
@@ -97,6 +122,8 @@
             .setLngLat([{{practitian.longitude}}, {{practitian.latitude}}])
             .setPopup(new mapboxgl.Popup().setHTML("<br><h5>{{practitian.users_id}}</h5>")) // add popup
             .addTo(map);
+        marker{{practitian.users_id}}.togglePopup(); // toggle popup open or closed
+
         {% endfor %}
     </script>
 {% endblock %}
