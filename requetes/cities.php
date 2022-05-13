@@ -14,7 +14,7 @@ function city_patient (){
 function city_practitian_all (){
     global $db;
 
-    $req = $db->query("SELECT practitian.id as practitian_id, speciality, description, address_street, address_cp, address_city, url_web, users_id, mail, first_name, last_name, avatar, ville_slug, ville_longitude_deg as longitude, ville_latitude_deg as latitude FROM practitian 
+    $req = $db->query("SELECT practitian.id as practitian_id, speciality, description, address_street, address_cp, address_city, url_web, users_id, mail, first_name, last_name, avatar, ville_slug, ville_longitude_deg as longitude, ville_latitude_deg as latitude, type FROM practitian 
     INNER JOIN users ON practitian.users_id = users.id
     INNER JOIN villes ON practitian.address_city = villes.ville_slug");
     $city_practitian = $req->fetchAll();

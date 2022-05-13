@@ -4,10 +4,10 @@ require "../php/function.php";
 
 if (isset($_GET['modify_user_patient'])){
     $array_parameter_users = array("last_name", "first_name", "phone", "mail");
-    update_table("users", $_GET['users_id'] ,$array_parameter_users);
+    update_table("users", $_GET['id'] ,$array_parameter_users);
 
     $array_parameter_patients = array("birthdate", "address_street", "address_cp", "address_city");
-    update_table("patients", $_GET['id'], $array_parameter_patients);
+    update_table("patients", $_GET['patients_id'], $array_parameter_patients);
 
     header("Location: ../index.php?p=unique_patient&id=".$_GET['id']."&edit=1");
 }

@@ -1,4 +1,7 @@
 <?php
+header( 'content-type: text/html; charset=utf-8' );
+?>
+<?php
 require '../composer/vendor/autoload.php';
 require '../database/Database.php';
 require '../requetes/patient.php';
@@ -108,3 +111,4 @@ switch ($page) {
         echo $twig->render('404/404.twig');
         break;
 }
+var_dump(iconv_get_encoding('all'));

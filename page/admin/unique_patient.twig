@@ -40,6 +40,12 @@
                     </h6>
                 </div>
                 <div class="card-body">
+                    {%if unique_patient.avatar != null %}
+                    <img src="image/{{unique_patient.avatar}}" width="160px" height="160px" alt="" />
+                        <br>
+                        <br>
+                    {% else %}
+                    {% endif %}
                     <H6>Nom: <strong>{{unique_patient.first_name}}</strong></H6>
                     <H6>Prénom: <strong>{{unique_patient.last_name}}</strong></H6>
                     <br>
@@ -171,6 +177,7 @@
         <br>
         <br>
         <br>
+        <property name="characterEncoding" value="UTF-8" />
         <div class="row">
             <div class="card shadow col-12">
                 <div class="card-header py-3">
@@ -226,7 +233,7 @@
                                     <td>
                                         {{ recommandeds_practitians.address_street}}
                                         <br>
-                                        {{recommandeds_practitians.address_cp}} {{recommandeds_practitians.address_city}}
+                                        {{recommandeds_practitians.address_cp}} {{recommandeds_practitians.address_city|convert_encoding('UTF-8', 'ISO-8859-1')}}
                                     </td>
                                     <td>
                                         <a href="{{recommandeds_practitians.url_web}}" class="btn btn-sm btn-outline-primary">Accéder au site</a>

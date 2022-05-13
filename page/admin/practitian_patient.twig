@@ -66,7 +66,7 @@
 
                                         </td>
                                         <td>{{practitian.last_name}} {{practitian.first_name}}</td>
-                                        <td>{{practitian.address_city}}</td>
+                                        <td>{{practitian.address_city|convert_encoding('UTF-8', 'ISO-8859-1')}}</td>
                                         <td>
                                             <input type="checkbox">
                                         </td>
@@ -120,10 +120,20 @@
         // Create a default Marker and add it to the map.
         const marker{{practitian.users_id}} = new mapboxgl.Marker({color: '#668AB2'})
             .setLngLat([{{practitian.longitude}}, {{practitian.latitude}}])
-            .setPopup(new mapboxgl.Popup().setHTML("<br><h5>{{practitian.users_id}}</h5>")) // add popup
+            .setPopup(new mapboxgl.Popup().setHTML("<div class='row'><div class='col-md-3'><img src='image/{{practitian.avatar}}' width='150%'></div><div class='col-md-9'><p><strong>{{practitian.last_name}} {{practitian.first_name}}</strong></p><p style='text-align: center;'>{% if practitian.type == 1 %} Docteur {%elseif practitian.type == 2 %} Chirurgien {% elseif practitian.type == 3 %} Infirmier {%elseif practitian.type == 4 %} Aide Soignant {% elseif practitian.type == 5 %} Psychologue {% endif %} - {% if practitian.speciality == 1 %} Généraliste {% elseif practitian.speciality == 2 %} Bariatrique {% elseif practitian.speciality == 3 %} Psychologie {% endif %}</p><h5 style='text-align: center;'>ID: <strong>{{practitian.users_id}}</strong></h3></div></div>")) // add popup
             .addTo(map);
-        marker{{practitian.users_id}}.togglePopup(); // toggle popup open or closed
+       // marker{{practitian.users_id}}.togglePopup(); // toggle popup open or closed
 
         {% endfor %}
     </script>
 {% endblock %}
+
+<script>
+   // function practitian (id){
+   //     $.ajax({
+   //         url: "admin/practitian.php?id="+id,
+   //         contentType: "application/json"
+   //     }).done(function() {
+    //    });
+   // }
+</script>
