@@ -126,4 +126,16 @@
 
         {% endfor %}
     </script>
+
+    <script>
+        function practitian (){
+            $.ajax({
+                url: "admin/practitian.php?id=4",
+                contentType: "application/json"
+            }).done(function(test) {
+                console.log(fsdfsd);
+                document.getElementById('{ID of element}').innerHTML = '{content}';
+            });
+        }
+    </script>
 {% endblock %}

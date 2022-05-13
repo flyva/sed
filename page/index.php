@@ -1,4 +1,5 @@
 <?php
+setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 header( 'content-type: text/html; charset=utf-8' );
 ?>
 <?php
@@ -111,4 +112,3 @@ switch ($page) {
         echo $twig->render('404/404.twig');
         break;
 }
-var_dump(iconv_get_encoding('all'));
