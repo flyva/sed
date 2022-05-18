@@ -89,6 +89,5 @@ function curl_delete($url){
     $error = curl_error($ch);
     echo $error;
 }
-
 ?>
 
