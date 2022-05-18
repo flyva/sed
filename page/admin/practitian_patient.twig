@@ -65,7 +65,7 @@
                                             {% endif %}
 
                                         </td>
-                                        <td>{{practitian.last_name}} {{practitian.first_name}}</td>
+                                        <td><button onclick="practitian({{practitian.users_id}})">{{practitian.last_name}} {{practitian.first_name}}</button></td>
                                         <td>{{practitian.address_city|convert_encoding('UTF-8', 'ISO-8859-1')}}</td>
                                         <td>
                                             <input type="checkbox">
@@ -94,7 +94,6 @@
             </div>
         </div>
     </div>
-
     <script>
         mapboxgl.accessToken = 'pk.eyJ1Ijoic2VibG9lYiIsImEiOiJjbDJ3MWE0OWUwaGUxM2ZxbWI1ZTlucjdtIn0.q-sLFfayOzT5jV8PQLGvvw';
         const map = new mapboxgl.Map({
@@ -128,12 +127,13 @@
     </script>
 
     <script>
-        function practitian (){
+        function practitian (id){
             $.ajax({
-                url: "admin/practitian.php?id=4",
+                url: "admin/practitian.php?id="+id,
                 contentType: "application/json"
             }).done(function(test) {
-                console.log(fsdfsd);
+                var lala = id
+                console.log(lala);
                 document.getElementById('{ID of element}').innerHTML = '{content}';
             });
         }
