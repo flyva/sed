@@ -88,7 +88,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-
+                        <p id="avatar_ajax"></p>
                     </div>
                 </div>
             </div>
@@ -130,11 +130,43 @@
         function practitian (id){
             $.ajax({
                 url: "admin/practitian.php?id="+id,
-                contentType: "application/json"
-            }).done(function(test) {
+                DataType: "application/json"
+            }).done(function(data) {
                 var lala = id
-                console.log(lala);
-                document.getElementById('{ID of element}').innerHTML = '{content}';
+                console.log(data);
+                var result = JSON.parse(data)
+
+                console.log(result['mail'])
+
+                if (result.type === 1){
+                    document.getElementById('type_ajax').innerHTML = "Docteur";
+                }else if (result.type === 2){
+                    document.getElementById('type_ajax').innerHTML = "Chirurgien";
+                }else if (result.type === 3){
+                    document.getElementById('type_ajax').innerHTML = "Infirmier";
+                }else if (result.type === 4){
+                    document.getElementById('type_ajax').innerHTML = "Aide Soignant";
+                }else if (result.type === 5){
+                    document.getElementById('type_ajax').innerHTML = "Psychologue";
+                }
+
+                if (result.speciality === 1){
+                    document.getElementById('speciality_ajax').innerHTML = "Généraliste";
+                }else if (result.speciality === 2){
+                    document.getElementById('speciality_ajax').innerHTML = "Bariatrique";
+                }else if (result.speciality === 3){
+                    document.getElementById('speciality_ajax').innerHTML = "Psychologie";
+                }
+
+                document.getElementById('avatar_ajax').innerHTML = String::result.avatar;
+                document.getElementById('name_ajax').innerHTML = result.last_name + " " + result.first_name;
+                document.getElementById('description_ajax').innerHTML = result.description;
+                document.getElementById('phone_ajax').innerHTML = result.phone;
+                document.getElementById('mail_ajax').innerHTML = result.mail;
+                document.getElementById('address_street_ajax').innerHTML = result.address_street;
+                document.getElementById('address_cp_ajax').innerHTML = result.address_cp;
+                document.getElementById('address_city_ajax').innerHTML = result.address_city;
+
             });
         }
     </script>
