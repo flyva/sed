@@ -22,59 +22,63 @@
                         <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-stethoscope"></i> Praticiens</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered display" id="" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Titre</th>
-                                    <th scope="col">Spécialité</th>
-                                    <th scope="col">Nom & Prénom</th>
-                                    <th scope="col">Ville</th>
-                                    <th scope="col"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {%for practitian in practitians %}
-                                    <tr>
-                                        <th scope="row">{{practitian.users_id}}</th>
+                        <form name="practitian" action="admin/form.php?practitian=1&id={{id}}" method="post">
+                            <div class="table-responsive">
+                                <table class="table table-bordered display" id="" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Titre</th>
+                                            <th scope="col">Spécialité</th>
+                                            <th scope="col">Nom & Prénom</th>
+                                            <th scope="col">Ville</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for practitian in practitians %}
+                                                <tr>
+                                                    <th scope="row">{{practitian.users_id}}</th>
 
-                                        <th scope="row">
+                                                    <th scope="row">
 
-                                            {% if practitian.type == 1 %}
-                                                Docteur
-                                            {%elseif practitian.type == 2 %}
-                                                Chirurgien
-                                            {% elseif practitian.type == 3 %}
-                                                Infirmier
-                                            {%elseif practitian.type == 4 %}
-                                                Aide Soignant
-                                            {% elseif practitian.type == 5 %}
-                                                Psychologue
-                                            {% endif %}
+                                                        {% if practitian.type == 1 %}
+                                                            Docteur
+                                                        {%elseif practitian.type == 2 %}
+                                                            Chirurgien
+                                                        {% elseif practitian.type == 3 %}
+                                                            Infirmier
+                                                        {%elseif practitian.type == 4 %}
+                                                            Aide Soignant
+                                                        {% elseif practitian.type == 5 %}
+                                                            Psychologue
+                                                        {% endif %}
 
-                                        </th>
-                                        <td>
+                                                    </th>
+                                                    <td>
 
-                                            {% if practitian.speciality == 1 %}
-                                                Généraliste
-                                            {% elseif practitian.speciality == 2 %}
-                                                Bariatrique
-                                            {% elseif practitian.speciality == 3 %}
-                                                Psychologie
-                                            {% endif %}
+                                                        {% if practitian.speciality == 1 %}
+                                                            Généraliste
+                                                        {% elseif practitian.speciality == 2 %}
+                                                            Bariatrique
+                                                        {% elseif practitian.speciality == 3 %}
+                                                            Psychologie
+                                                        {% endif %}
 
-                                        </td>
-                                        <td><button onclick="practitian({{practitian.users_id}})">{{practitian.last_name}} {{practitian.first_name}}</button></td>
-                                        <td>{{practitian.address_city|convert_encoding('UTF-8', 'ISO-8859-1')}}</td>
-                                        <td>
-                                            <input type="checkbox">
-                                        </td>
-                                    </tr>
-                                {%endfor%}
-                                </tbody>
-                            </table>
-                        </div>
+                                                    </td>
+                                                    <td><span href="#" class="btn btn-sm btn-outline-secondary practitian_button" data-users_id="{{practitian.users_id}}">{{practitian.last_name}} {{practitian.first_name}}</span></td>
+                                                    <td>{{practitian.address_city|convert_encoding('UTF-8', 'ISO-8859-1')}}</td>
+                                                    <td>
+                                                        <input name="practitian_{{practitian.id}}" type="checkbox" value="1">
+                                                    </td>
+                                                </tr>
+                                            {%endfor%}
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <input class="btn btn-outline-success" type="submit" name="submit_practitian" value="Ajouter">
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -87,8 +91,28 @@
                     <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-stethoscope"></i> Praticiens</h6>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <p id="avatar_ajax"></p>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="" id="avatar_ajax" alt="" width="100%"/>
+                            </div>
+                            <div class="col-md-9">
+                                <h4 style="display: inline" id="type_ajax"></h4> <h3 style="display: inline; font-weight: bold;" id="name_ajax"></h3>
+                                <h6 style="font-style: italic" id="speciality_ajax"></h6>
+                                <p id="description_ajax"></p>
+                            </div>
+                            <div class="col-md-9">
+                                <br>
+                                <i style="display: inline" class="fa fa-phone"></i> <p style="display: inline" id="phone_ajax"></p><br>
+                                <i style="display: inline" class="fa fa-mail-bulk"> </i><p style="display: inline" id="mail_ajax"></p><br>
+                                <i style="display: inline" class="fa fa-globe"></i> <p style="display: inline" id="url_web_ajax"></p>
+                            </div>
+                            <div class="col-md-3">
+                                <br>
+                                <h6 style="display: inline" id="address_street_ajax"></h6><br>
+                                <h6 style="display: inline" id="address_cp_ajax"></h6><p style="display: inline">, </p> <h6 style="display: inline" id="address_city_ajax"></h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -124,50 +148,5 @@
        // marker{{practitian.users_id}}.togglePopup(); // toggle popup open or closed
 
         {% endfor %}
-    </script>
-
-    <script>
-        function practitian (id){
-            $.ajax({
-                url: "admin/practitian.php?id="+id,
-                DataType: "application/json"
-            }).done(function(data) {
-                var lala = id
-                console.log(data);
-                var result = JSON.parse(data)
-
-                console.log(result['mail'])
-
-                if (result.type === 1){
-                    document.getElementById('type_ajax').innerHTML = "Docteur";
-                }else if (result.type === 2){
-                    document.getElementById('type_ajax').innerHTML = "Chirurgien";
-                }else if (result.type === 3){
-                    document.getElementById('type_ajax').innerHTML = "Infirmier";
-                }else if (result.type === 4){
-                    document.getElementById('type_ajax').innerHTML = "Aide Soignant";
-                }else if (result.type === 5){
-                    document.getElementById('type_ajax').innerHTML = "Psychologue";
-                }
-
-                if (result.speciality === 1){
-                    document.getElementById('speciality_ajax').innerHTML = "Généraliste";
-                }else if (result.speciality === 2){
-                    document.getElementById('speciality_ajax').innerHTML = "Bariatrique";
-                }else if (result.speciality === 3){
-                    document.getElementById('speciality_ajax').innerHTML = "Psychologie";
-                }
-
-                document.getElementById('avatar_ajax').innerHTML = String::result.avatar;
-                document.getElementById('name_ajax').innerHTML = result.last_name + " " + result.first_name;
-                document.getElementById('description_ajax').innerHTML = result.description;
-                document.getElementById('phone_ajax').innerHTML = result.phone;
-                document.getElementById('mail_ajax').innerHTML = result.mail;
-                document.getElementById('address_street_ajax').innerHTML = result.address_street;
-                document.getElementById('address_cp_ajax').innerHTML = result.address_cp;
-                document.getElementById('address_city_ajax').innerHTML = result.address_city;
-
-            });
-        }
     </script>
 {% endblock %}

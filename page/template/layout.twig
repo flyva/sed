@@ -127,6 +127,65 @@
     } );
 </script>
 
+<script>
+    function practitian (id){
+        event.stopPropagation();
+        $.ajax({
+            url: "admin/practitian.php?id="+id,
+            DataType: "application/json"
+        }).done(function(data) {
+            var lala = id
+            console.log(lala)
+            console.log(data);
+            var result = JSON.parse(data)
+
+            console.log(result);
+
+
+            if (result.type === "1"){
+                document.getElementById('type_ajax').innerHTML = "Docteur";
+            }else if (result.type === "2"){
+                document.getElementById('type_ajax').innerHTML = "Chirurgien";
+            }else if (result.type === "3"){
+                document.getElementById('type_ajax').innerHTML = "Infirmier";
+            }else if (result.type === "4"){
+                document.getElementById('type_ajax').innerHTML = "Aide Soignant";
+            }else if (result.type === "5"){
+                document.getElementById('type_ajax').innerHTML = "Psychologue";
+            }
+
+            if (result.speciality === "1"){
+                document.getElementById('speciality_ajax').innerHTML = "Généraliste";
+            }else if (result.speciality === "2"){
+                document.getElementById('speciality_ajax').innerHTML = "Bariatrique";
+            }else if (result.speciality === "3"){
+                document.getElementById('speciality_ajax').innerHTML = "Psychologie";
+            }
+
+            var image = document.getElementById('avatar_ajax');
+            image.src="image/" + result.avatar;
+
+            document.getElementById('name_ajax').innerHTML = result.last_name + " " + result.first_name;
+            document.getElementById('description_ajax').innerHTML = result.description;
+            document.getElementById('phone_ajax').innerHTML = result.phone;
+            document.getElementById('mail_ajax').innerHTML = result.mail;
+            document.getElementById('address_street_ajax').innerHTML = result.address_street;
+            document.getElementById('address_cp_ajax').innerHTML = result.address_cp;
+            document.getElementById('address_city_ajax').innerHTML = result.address_city;
+            document.getElementById('url_web_ajax').innerHTML = result.url_web;
+
+        });
+    }
+
+    $(document).ready(function() {
+        $(".practitian_button").click(function (event) {
+            var practitian_users_id = $(this).data("users_id");
+
+            practitian(practitian_users_id);
+        })
+    });
+</script>
+
 </body>
 
 </html>

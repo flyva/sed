@@ -31,7 +31,8 @@ if (isset($_GET['id'])) {
     $recommanded_practitian = practitian_patient($_GET['id']);
     $city_practitian = city_practitian_all();
     $city_patients = city_patient($_GET['id']);
-
+    $practitian =practitian();
+    $id = $_GET['id'];
 
 }else{$unique_patient = "rien";
     $statut_patients = "rien";
@@ -40,6 +41,8 @@ if (isset($_GET['id'])) {
     $city_patients = "rien";
     $interviews = "riens";
     $recommanded_practitian = "rien";
+    $practitian = "rien";
+    $id = "rien";
 
 }
 if (isset($_GET['edit'])){
@@ -82,7 +85,7 @@ switch ($page) {
 
             //PRACTITIAN
             "city_practitian" => $city_practitian,
-            "practitians" => practitian(),
+            "practitians" => $practitian,
 
             // ADMIN
            // "admin_get" => $admin_get,
@@ -93,7 +96,8 @@ switch ($page) {
             "add" => $add,
 
             // GET PAGE
-            "page" => $_GET['p']
+            "page" => $_GET['p'],
+            "id" => $id
         ]);
         break;
 

@@ -77,3 +77,28 @@ if (isset($_GET['delete_recommandeds_practitians'])){
 
     header("Location: ../index.php?p=unique_patient&id=".$_GET['id']."&delete=1");
 }
+
+if (isset($_GET['practitian'])){
+    $req = $db->query("SELECT practitian.id as id, users_id FROM practitian 
+    INNER JOIN users ON practitian.users_id = users.id");
+    $practitian = $req->fetchAll();
+
+    foreach ($practitian as $practitian_id){
+        $req = $db->query("SELECT patients.id as id FROM patients 
+    INNER JOIN users ON patients.users_id = users.id WHERE users.id = ".$_GET['id']);
+        $patient = $req->fetch();
+
+        if (isset($_POST['practitian_'.$practitian_id['id']]) && $_POST['practitian_'.$practitian_id['id']] === "1"){
+            $_POST['patients_id'] = $patient['id'];
+            $_POST['practitian_id'] = $practitian_id['id'];
+
+            $array_parameter_recommanded_practitian = array("patients_id", "practitian_id");
+            insert_table("recommanded_practitian", $array_parameter_recommanded_practitian);
+        }else{
+
+        }
+
+       header("Location: ../index.php?p=unique_patient&id=".$_GET['id']."&add=1");
+
+    }
+}
